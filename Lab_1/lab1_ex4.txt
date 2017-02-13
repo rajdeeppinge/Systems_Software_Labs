@@ -1,0 +1,26 @@
+//program
+1	#include <stdio.h>
+2	int main()
+3	{
+4	int a[10];
+5	int *a1;
+6	a1 = a;
+7	a1 = 0;
+8	a1[0] = 1;
+9	return 0;
+10	}
+
+//result of gdb
+Breakpoint 4, main () at lab1_ex4.c:8
+8	a1[0] = 1;
+(gdb) step
+
+Program received signal SIGSEGV, Segmentation fault.
+0x080483aa in main () at lab1_ex4.c:8
+8	a1[0] = 1;
+
+Q1. Which line of this program resulted in a segmentation fault?
+Ans. 8th line
+
+Q2. Why does the segfault occur?
+Ans. a1 has been first assigned the address of array a(line 6), then a1 is assigned 0 (line 7, which may be the starting address of stack which is not accessible in this function). Now we try to access a1[0], that is, address at a1 + offset 0 which is outside the stack frame of this function and hence not accessible, hence this is an illegal memory access which is causing segmenatation fault.
